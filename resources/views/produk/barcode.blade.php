@@ -15,6 +15,7 @@
 <body>
     <table width="100%">
         <tr>
+        <!-- Looping -->
             @foreach ($dataproduk as $produk)
                 <td class="text-center" style="border: 1px solid #333;">
                     <p>{{ $produk->nama_produk }} - Rp. {{ format_uang($produk->harga_jual) }}</p>

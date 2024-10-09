@@ -18,14 +18,16 @@ class ProdukController extends Controller
     public function index()
     {
         $kategori = Kategori::all()->pluck('nama_kategori', 'id_kategori');
-
+        //Kategori::all(): Memanggil model Kategori untuk mengambil semua data dari tabel kategori di basis data.
+        //Menggunakan metode pluck() untuk mengambil kolom nama_kategori dan id_kategori
         return view('produk.index', compact('kategori'));
+        //Fungsi compact() digunakan untuk mengubah variabel $kategori menjadi array yang dapat diteruskan ke tampilan.
     }
 
     public function data()
     {
-        $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
-            ->select('produk.*', 'nama_kategori')
+        $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')    //Menggunakan leftJoin untuk menggabungkan tabel produk dengan tabel kategori berdasarkan ID kategori.
+            ->select('produk.*', 'nama_kategori')       // Memilih semua kolom dari tabel produk dan kolom nama_kategori dari tabel kategori.
             ->get();
     
         return datatables()
@@ -93,13 +95,13 @@ class ProdukController extends Controller
     {
         // Hilangkan titik pada harga_beli dan harga_jual sebelum disimpan
         $request->merge([
-            'harga_beli' => str_replace('.', '', $request->harga_beli),
-            'harga_jual' => str_replace('.', '', $request->harga_jual),
+            'harga_beli' => str_replace('.', '', $request->harga_beli), //str_replace('.', '', $request->harga_beli): Menghilangkan semua titik dari string harga beli.
+            'harga_jual' => str_replace('.', '', $request->harga_jual), //  Ini biasanya dilakukan untuk mengubah format harga dari yang memiliki pemisah ribuan (misalnya, "1.500") menjadi format yang bisa diterima oleh basis data (misalnya, "1500").
         ]);
     
-        $produk = Produk::latest()->first() ?? new Produk();
+        $produk = Produk::latest()->first() ?? new Produk();    //Mengambil produk terakhir yang ditambahkan ke basis data berdasarkan ID produk yang tertinggi. Jika tidak ada produk, akan membuat objek Produk baru (in case tabel produk masih kosong).
         $request['kode_produk'] = 'P' . tambah_nol_didepan((int)$produk->id_produk + 1, 6);
-    
+            //(int)$produk->id_produk + 1: Menambah 1 pada ID produk terakhir untuk menghasilkan ID baru. contoh 000001, 000002 dan seterusnya
         $produk = Produk::create($request->all());
     
         return response()->json('Data berhasil disimpan', 200);
@@ -110,7 +112,7 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id)   //untuk mencari dan mengambil data produk berdasarkan ID yang diberikan.
     {
         $produk = Produk::find($id);
 

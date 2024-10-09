@@ -138,7 +138,7 @@
 
 
     function addForm(url) {
-        $('#modal-form').modal('show');
+        $('#modal-form').modal('show'); // untuk menampilkan modal (jendela pop-up)
         $('#modal-form .modal-title').text('Tambah Produk');
 
         $('#modal-form form')[0].reset();
@@ -148,7 +148,7 @@
     }       //ini digunakan untuk mengatur tampilan dan isi dari sebuah modal form yang digunakan untuk menambah produk.
 
     function editForm(url) {
-        $('#modal-form').modal('show');
+        $('#modal-form').modal('show'); // untuk menampilkan modal (jendela pop-up)
         $('#modal-form .modal-title').text('Edit Produk');
 
         $('#modal-form form')[0].reset();
@@ -156,9 +156,9 @@
         $('#modal-form [name=_method]').val('put');
         $('#modal-form [name=nama_produk]').focus();
 
-        $.get(url)
+        $.get(url)  //untuk mendapatkan data produk yang ingin diedit.
             .done((response) => {
-                $('#modal-form [name=nama_produk]').val(response.nama_produk);
+                $('#modal-form [name=nama_produk]').val(response.nama_produk);  //memungkinkan pengguna untuk melihat dan mengedit informasi produk yang ada.
                 $('#modal-form [name=id_kategori]').val(response.id_kategori);
                 $('#modal-form [name=merk]').val(response.merk);
                 $('#modal-form [name=harga_beli]').val(response.harga_beli);
