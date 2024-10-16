@@ -41,18 +41,13 @@
             </li>
             <li class="header">TRANSAKSI</li>
             <li>
-                <a href="{{ route('pengeluaran.index') }}">
-                    <i class="fa fa-money"></i> <span>Pengeluaran</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('pembelian.index') }}">
                     <i class="fa fa-download"></i> <span>Pembelian</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('penjualan.index') }}">
-                    <i class="fa fa-upload"></i> <span>Penjualan</span>
+                <a href="{{ route('transaksi.baru') }}">
+                    <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
                 </a>
             </li>
             <li>
@@ -61,8 +56,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.baru') }}">
-                    <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
+                <a href="{{ route('pengeluaran.index') }}">
+                    <i class="fa fa-money"></i> <span>Pengeluaran</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('penjualan.index') }}">
+                    <i class="fa fa-upload"></i> <span>Daftar Penjualan</span>
                 </a>
             </li>
             <li class="header">REPORT</li>

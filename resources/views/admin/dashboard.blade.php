@@ -70,6 +70,9 @@
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">Grafik Pendapatan {{ tanggal_indonesia($tanggal_awal_asli,false) }} s/d {{ tanggal_indonesia($tanggal_akhir_asli,false) }}</h3>
+          <div>
+          <a href="{{ route('admin.exportPDF') }}" target="_blank" class="btn btn-success btn-xs btn-flat"><i class="fa fa-file-excel-o"></i> Export PDF</a>
+          </div>
 
         <!-- /.box-header -->
         <div class="box-body">
@@ -91,7 +94,7 @@
       <!-- /.box -->
     </div>
     <!-- /.col -->
-  </div>
+
   <!-- /.row -->
       <!-- /.row (main row) -->
       <div class="row">
@@ -118,7 +121,7 @@
             </div>
         </div>
     </div>
-    
+      </div>
 @endsection
 
 @push('scripts')
@@ -147,11 +150,22 @@
     ]
   }; var salesChartOptions = {
     pointDot                : false,
-    responsive              : true
+    responsive              : true,
+    scaleLabel: function(label){
+      return 'Rp ' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Format Rupiah
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          userCallback: function(value){
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return 'Rp' + value; //menambahkan "Rp" di depan nilai
+          }
+        }
+      }]
+    }
   };
-
-    
-
 
   salesChart.Line(salesChartData, salesChartOptions);
 });

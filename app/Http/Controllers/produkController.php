@@ -43,24 +43,24 @@ class ProdukController extends Controller
             })
             ->addColumn('harga_beli', function ($produk) {
                 // Format angka dengan pemisah ribuan
-                return number_format($produk->harga_beli, 0, ',', '.');
+                return 'Rp. '. number_format($produk->harga_beli, 0, ',', '.');
             })
             ->addColumn('harga_jual', function ($produk) {
                 // Format angka dengan pemisah ribuan
-                return number_format($produk->harga_jual, 0, ',', '.');
+                return 'Rp. '. number_format($produk->harga_jual, 0, ',', '.');
             })
             ->addColumn('stok', function ($produk) {
                 return format_uang($produk->stok); // Gunakan helper format_uang jika sudah ada
             })
             ->addColumn('keterangan', function ($produk) {
                 if ($produk->stok > 50) {
-                    return '<span class="label label-primary">Stok Banyak</span>'; // Blue for "Stok Banyak"
+                    return '<span class="label label-primary">Stok Banyak</span>'; // Biru untuk "Stok Banyak"
                 } elseif ($produk->stok > 20) {
-                    return '<span class="label label-success">Stok Cukup</span>'; // Green for "Stok Cukup"
+                    return '<span class="label label-success">Stok Cukup</span>'; // Hijau untuk "Stok Cukup"
                 } elseif ($produk->stok > 0) {
-                    return '<span class="label label-warning">Stok Menipis</span>'; // Yellow for "Stok Menipis"
+                    return '<span class="label label-warning">Stok Menipis</span>'; // Kuning untuk "Stok Menipis"
                 } else {
-                    return '<span class="label label-danger">Stok Habis</span>'; // Red for "Stok Habis"
+                    return '<span class="label label-danger">Stok Habis</span>'; // Merah untuk "Stok Habis"
                 }
             })
             ->addColumn('aksi', function ($produk) {
@@ -94,6 +94,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         // Hilangkan titik pada harga_beli dan harga_jual sebelum disimpan
+        // Tidak berguna (Boleh pake/Tidak)
         $request->merge([
             'harga_beli' => str_replace('.', '', $request->harga_beli), //str_replace('.', '', $request->harga_beli): Menghilangkan semua titik dari string harga beli.
             'harga_jual' => str_replace('.', '', $request->harga_jual), //  Ini biasanya dilakukan untuk mengubah format harga dari yang memiliki pemisah ribuan (misalnya, "1.500") menjadi format yang bisa diterima oleh basis data (misalnya, "1500").
@@ -140,6 +141,7 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
 {
     // Hilangkan titik pada harga_beli dan harga_jual sebelum disimpan
+    // Tidak berguna (Boleh pake/Tidak)
     $request->merge([
         'harga_beli' => str_replace('.', '', $request->harga_beli),
         'harga_jual' => str_replace('.', '', $request->harga_jual),

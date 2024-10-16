@@ -44,6 +44,7 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 
 Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/pdf', [DashboardController::class, 'exportPDF'])->name('admin.exportPDF');
 Route::group(['middleware' => 'level:1'], function () {
 
 Route::get('/kategori/data', [kategoriController::class, 'data'])->name('kategori.data');

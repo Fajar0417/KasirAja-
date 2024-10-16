@@ -471,7 +471,7 @@
     <!-- Bagian Navigasi -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" target="_blank" href="#"><img src="{{ url($setting->path_logo) }}" alt=""
+            <a class="navbar-brand"><img src="{{ url($setting->path_logo) }}" alt=""
                     width="50" height="50">{{ $setting->nama_perusahaan }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -480,18 +480,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#kami">Tentang Kami</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link"  href="#tentang">{{ $setting->nama_perusahaan }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#tim11">Tim</a>
                     </li>
-                    <!-- Login Button -->
-                    <li class="nav-itemm">
-                        <a class="btn btn-outline-light ms-3"href="{{ route('login') }}">Login</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kami">Tentang Kami</a>
                     </li>
+                    <!-- Login Button -->
+                    <!-- <li class="nav-itemm">
+                        <a class="btn btn-outline-light ms-3"href="{{ route('login') }}">Login</a>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -506,7 +506,7 @@
                 <br>transaksi
                 penjualan yang dibutuhkan bagi Toko Swalayan maupun <br>Sekolah Pencetak Wirausaha (SPW)</p>
             <div class="buttom-ber"><a href="{{ route('login') }}" class="btn btn-lg" data-aos="zoom-in"
-                    data-aos-duration="800">Mulai</a></div>
+                    data-aos-duration="800">Login</a></div>
         </div>
         <div class="img-ber" data-aos="fade-up" data-aos-duration="1000">
             <img src="{{ asset('images/ftBeranda.png') }}" alt="" width="400px" height="400px">
@@ -652,21 +652,21 @@
                 </div>
                 <div class="kasirr">
                     <h5 class="teks-kami">Ikuti Kami</h5>
-                    <a target="_blank" href="#">
+                    <a target="_blank" href="{{ $setting->instagram }}">
                         <p><img src="{{ asset('images/Instagram.png') }}" alt="" width="10px"
                                 height="10px">Instagram</p>
                     </a>
-                    <a target="_blank" href="#">
+                    <a target="_blank" href="{{ $setting->youtube }}">
+                        <p><img src="{{ asset('images/youtube.png') }}" alt="" width="10px"
+                                height="10px">Youtube</p>
+                    </a>
+                    <a target="_blank" href="{{$setting->facebook}}">
                         <p><img src="{{ asset('images/facebook.png') }}" alt="" width="10px"
                                 height="10px">Facebook</p>
                     </a>
-                    <a target="_blank" href="#">
+                    <a target="_blank" href="{{ $setting->twiter}}">
                         <p><img src="{{ asset('images/twiter-x.png') }}" alt="" width="10px"
                                 height="10px">Twiter-x</p>
-                    </a>
-                    <a target="_blank" href="#">
-                        <p><img src="{{ asset('images/youtube.png') }}" alt="" width="10px"
-                                height="10px">Youtube</p>
                     </a>
                 </div>
                 <div class="kasirrr">

@@ -48,10 +48,14 @@
                         <div class="col-lg-5">
                             <div class="input-group">
                                 <input type="hidden" name="id_penjualan" id="id_penjualan" value="{{ $id_penjualan }}">
+                                <!-- HIDDEN: Input ini berfungsi untuk menyimpan id_penjualan, yang merupakan ID unik untuk transaksi penjualan saat ini. -->
+                                 <!-- {{ $id_penjualan }} akan diganti dengan nilai dari variabel $id_penjualan -->
                                 <input type="hidden" name="id_produk" id="id_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
+                                <!-- Tombol untuk Menampilkan Produk: -->
                                 <span class="input-group-btn">
                                     <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
+                                    <!-- onclick="tampilProduk()": Ketika tombol ini diklik, fungsi JavaScript tampilProduk() akan dipanggil. Fungsi ini kemungkinan digunakan untuk menampilkan daftar produk atau mengambil informasi terkait kode produk yang diinputkan. -->
                                 </span>
                             </div>
                         </div>
@@ -176,17 +180,28 @@
 
         // Fungsi untuk memeriksa stok
         function checkStok() {
-        isStokValid = true; // Reset nilai sebelum pengecekan stok
+        isStokValid = true; // Menetapkan nilai awal dari variabel isStokValid ke true
+                            // kita memulai dengan asumsi bahwa semua stok yang diperiksa adalah valid (cukup tersedia)
 
         // Cek stok untuk setiap produk dalam tabel
         $('.table-penjualan tbody tr').each(function () {
-            let stokTersedia = parseInt($(this).find('.stok').text()); // Stok yang tersedia
+            let stokTersedia = parseInt($(this).find('.stok').text()); 
+                // stokTersedia yang dihasilkan akan digunakan dalam proses validasi untuk memastikan bahwa jumlah yang ingin dibeli oleh pengguna tidak melebihi stok yang tersedia.
+                // Let digunakan untuk mendeklarasikan variabel stokTersedia artinya hanya dapat diakses di dalam blok kode di mana ia dideklarasikan (dalam hal ini, di dalam fungsi iterasi dari each).
+                // parseInt() adalah fungsi JavaScript yang mengonversi string menjadi bilangan bulat (integer).
+                // Fungsi Utama: Baris kode ini digunakan untuk mengambil jumlah stok yang tersedia dari elemen HTML dan mengonversinya menjadi tipe data angka
             let jumlah = parseInt($(this).find('.quantity').val()) || 0; // Jumlah yang diinput
+                // Fungsi Val() Jika pengguna telah mengisi jumlah, .val() akan mengembalikan nilai dalam format string. Jika tidak ada input yang diberikan, nilainya bisa kosong.
+                // || 0; Fungsi: Ini memastikan bahwa jika tidak ada input yang diberikan atau jika input tidak valid, jumlah akan diatur ke 0.
+                // Fungsi Utama: Kode ini digunakan untuk mengambil jumlah produk yang ingin dibeli dari elemen input, mengonversinya menjadi angka, dan menangani kasus di mana input tidak valid atau tidak ada.
 
             if (jumlah > stokTersedia || stokTersedia === 0) {
                 isStokValid = false; // Stok tidak cukup atau habis
                 return false; // Hentikan pengecekan jika ada stok yang habis
             }
+                //  jumlah > stokTersedia: Mengecek apakah jumlah produk yang ingin dibeli (jumlah) lebih besar dari jumlah stok yang tersedia (stokTersedia).
+                // stokTersedia === 0: Mengecek apakah stok tersedia sama dengan 0. Jika benar, ini menunjukkan bahwa produk habis.
+                // Logika OR: Menggunakan operator logika || (OR) berarti jika salah satu dari kedua kondisi tersebut terpenuhi, maka blok kode di dalam if akan dieksekusi.
         });
     }
 
@@ -195,7 +210,16 @@
             let jumlah = parseInt($(this).val());
             let stok = parseInt($(this).parent().parent().find('.stok').text());
 
-            console.log(stok);
+            //'input' berarti bahwa fungsi akan dijalankan setiap kali ada perubahan pada elemen input dengan kelas .quantity.
+            // Val(). Mengambil nilai dari elemen input dengan menggunakan .val().
+            // Variabel jumlah akan menyimpan jumlah produk yang dimasukkan oleh pengguna.
+
+
+            //.find('.stok').text(): Mencari elemen dengan kelas .stok dalam tr tersebut dan mengambil teksnya.
+            //Fungsi: Variabel stok akan menyimpan jumlah stok yang tersedia untuk produk yang sama.
+
+
+            console.log(stok);  // Ini berguna untuk debugging, memungkinkan pengembang melihat nilai stok yang tersedia setiap kali pengguna mengubah jumlah input.
 
             if (jumlah < 1) {
                 $(this).val(1);

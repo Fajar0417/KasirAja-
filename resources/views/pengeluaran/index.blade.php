@@ -53,6 +53,13 @@
                 $(this).val(formatCurrency(value)); // Format nilai saat mengetik
             });
 
+            $('#modal-form').on('submit', function() {
+            $('[name=nominal]').each(function() {
+                let value = $(this).val().replace(/\./g, '');       // metode yang digunakan untuk menghapus semua titik (.) dari nilai tersebut.
+                $(this).val(value);     // Set nilai tanpa titik
+            });                         //Jika pengguna memasukkan 1.000.000 ke dalam field harga_beli, saat disubmit, nilai yang dikirimkan akan menjadi 1000000.
+        });
+
             // DataTable initialization
             table = $('.table').DataTable({
                 responsive: true,

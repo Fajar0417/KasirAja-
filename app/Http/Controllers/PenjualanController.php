@@ -19,9 +19,9 @@ class PenjualanController extends Controller
 
     public function data()
     {
-        $penjualan = Penjualan::where('bayar', '>', 0)
+        $penjualan = Penjualan::where('bayar', '>', 0)  // Ini berarti kita hanya mengambil penjualan yang telah dibayar, mengabaikan transaksi yang belum dibayar atau tidak valid.
             ->orderBy('id_penjualan', 'desc')
-            ->get();
+            ->get();   
 
         return datatables()
             ->of($penjualan)
@@ -90,16 +90,17 @@ class PenjualanController extends Controller
 
         // Simpan total diskon ke dalam Penjualan
         $penjualan->total_diskon = $totalDiskon; // Pastikan field ini ada di tabel penjualans
-
         $penjualan->update();
-
         $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
-        foreach ($detail as $item) {
+        
+        foreach ($detail as $item) {        //foreach ($detail as $item) adalah perulangan yang digunakan untuk mengiterasi setiap item dalam koleksi $detail
             $item->update();
 
-            $produk = Produk::find($item->id_produk);
-            $produk->stok -= $item->jumlah;
-            $produk->update();
+            $produk = Produk::find($item->id_produk);   //$produk = Produk::find($item->id_produk);: Ini mengambil entitas Produk berdasarkan id_produk yang terdapat dalam PenjualanDetail saat ini.
+                                                        // Ini penting untuk mendapatkan informasi tentang produk yang terkait dengan item yang dibeli.
+            $produk->stok -= $item->jumlah; //$produk->stok -= $item->jumlah;: Di sini, jumlah yang dibeli ($item->jumlah) dikurangkan dari stok produk ($produk->stok).
+            $produk->update();  //$produk->update();: Setelah stok diperbarui, pemanggilan update() pada model Produk menyimpan perubahan tersebut ke basis data. 
+                                //Ini memastikan bahwa data stok yang baru disimpan dan akan mencerminkan jumlah stok yang tepat di sistem.
         }
 
         return redirect()->route('transaksi.selesai');
