@@ -29,6 +29,9 @@ class PenjualanController extends Controller
             ->addColumn('total_item', function ($penjualan) {
                 return format_uang($penjualan->total_item);
             })
+            ->addColumn('no_transaksi', function ($penjualan) {
+                return tambah_nol_didepan($penjualan->id_penjualan, 10);
+            })
             ->addColumn('total_harga', function ($penjualan) {
                 return 'Rp. '. format_uang($penjualan->total_harga);
             })
@@ -61,6 +64,7 @@ class PenjualanController extends Controller
     {
         $penjualan = new Penjualan();
         $penjualan->total_item = 0;
+        $penjualan->no_transaksi = 0;
         $penjualan->total_harga = 0;
         $penjualan->bayar = 0;
         $penjualan->diterima = 0;

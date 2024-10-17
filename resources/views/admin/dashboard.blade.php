@@ -70,9 +70,9 @@
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">Grafik Pendapatan {{ tanggal_indonesia($tanggal_awal_asli,false) }} s/d {{ tanggal_indonesia($tanggal_akhir_asli,false) }}</h3>
-          <div>
+          <!-- <div>
           <a href="{{ route('admin.exportPDF') }}" target="_blank" class="btn btn-success btn-xs btn-flat"><i class="fa fa-file-excel-o"></i> Export PDF</a>
-          </div>
+          </div> -->
 
         <!-- /.box-header -->
         <div class="box-body">

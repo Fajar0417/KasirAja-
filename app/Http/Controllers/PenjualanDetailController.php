@@ -83,13 +83,18 @@ class PenjualanDetailController extends Controller
 
     public function store(Request $request)
     {
-        $produk = Produk::where('id_produk', $request->id_produk)->first();
+        $produk = Produk::where('kode_produk', $request->kode_produk)->first();
         if (!$produk) {
             return response()->json('Data gagal disimpan', 400);
         }
 
         if ($produk->stok < $request->jumlah) {
             return response()->json(['message' => 'Stok produk tidak mencukupi!'], 400);  // Kode 400 untuk error
+        }
+
+        $penjualanId = $request->id_penjualan ?? session('id_penjualan');
+        if (!$penjualanId) {
+         return response()->json(['message' => 'ID Penjualan tidak ditemukan'], 400);
         }
     
 

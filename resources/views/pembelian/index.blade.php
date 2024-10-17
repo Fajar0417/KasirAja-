@@ -15,6 +15,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <button onclick="addForm()" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Transaksi Baru</button>
+                <!-- Fungsi ini biasanya berisi logika untuk melakukan suatu tindakan, seperti menampilkan form baru, menambahkan transaksi baru, atau melakukan sesuatu yang relevan dengan aplikasi. -->
                 @empty(! session('id_pembelian'))
                 <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i class="fa fa-pencil"></i> Transaksi Aktif</a>
                 @endempty
@@ -48,13 +49,13 @@
 
     $(function () {
         table = $('.table-pembelian').DataTable({
-            processing: true,
-            autoWidth: false,
+            processing: true,   //Menampilkan indikator pemrosesan (loading)
+            autoWidth: false,   //Menonaktifkan penyesuaian otomatis lebar kolom. 
             ajax: {
-                url: '{{ route('pembelian.data') }}',
+                url: '{{ route('pembelian.data') }}',   //Ini adalah URL endpoint yang akan dipanggil untuk mengambil data. {{ route('pembelian.data') }} adalah sintaks Laravel yang menghasilkan URL untuk route yang ditentukan.
             },
-            columns: [
-                {data: 'DT_RowIndex', searchable: false, sortable: false},
+            columns: [  //Mendefinisikan kolom-kolom yang akan ditampilkan di tabel.
+                {data: 'DT_RowIndex', searchable: false, sortable: false},  //Menampilkan indeks baris
                 {data: 'tanggal'},
                 {data: 'supplier'},
                 {data: 'total_item'},
@@ -65,7 +66,7 @@
             ]
         });
 
-        $('.table-supplier').DataTable();
+        $('.table-supplier').DataTable();   //Dihapus juga tidak apa- apa
         table1 = $('.table-detail').DataTable({
             processing: true,
             bSort: false,

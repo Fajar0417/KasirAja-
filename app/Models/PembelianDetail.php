@@ -15,7 +15,7 @@ class PembelianDetail extends Model
 
     public function produk()
     {
-        return $this->hasOne(produk::class,'id_produk', 'id_produk');
-    }
+        return $this->hasOne(produk::class,'id_produk', 'id_produk');   //Dalam konteks ini, hubungan yang didefinisikan adalah satu ke satu (one-to-one).
+    }   //Model ini memiliki hubungan satu ke satu dengan model produk, yang memungkinkan Anda untuk dengan mudah mengambil data produk yang terkait dengan detail pembelian tertentu.
 
 }

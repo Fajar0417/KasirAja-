@@ -3,7 +3,8 @@
 function format_uang ($angka) {
     return number_format($angka, 0, ',', '.');
 }
-
+// Fungsi number_format adalah fungsi bawaan PHP yang digunakan untuk memformat angka menjadi string dengan pemisah ribuan dan desimal.
+// '.' sehingga angka seperti 1000000 akan diformat menjadi 1.000.000.
 function terbilang ($angka) {
     $angka = abs($angka);
     $baca  = array('', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas');

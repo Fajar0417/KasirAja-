@@ -52,11 +52,13 @@
                                  <!-- {{ $id_penjualan }} akan diganti dengan nilai dari variabel $id_penjualan -->
                                 <input type="hidden" name="id_produk" id="id_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
+                                <!-- <input type="text" id="kode_produk" class="form-control" placeholder="Masukkan kode produk dan tekan Enter"> -->
                                 <!-- Tombol untuk Menampilkan Produk: -->
                                 <span class="input-group-btn">
                                     <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
                                     <!-- onclick="tampilProduk()": Ketika tombol ini diklik, fungsi JavaScript tampilProduk() akan dipanggil. Fungsi ini kemungkinan digunakan untuk menampilkan daftar produk atau mengambil informasi terkait kode produk yang diinputkan. -->
                                 </span>
+                                
                             </div>
                         </div>
                     </div>
@@ -184,6 +186,7 @@
                             // kita memulai dengan asumsi bahwa semua stok yang diperiksa adalah valid (cukup tersedia)
 
         // Cek stok untuk setiap produk dalam tabel
+        
         $('.table-penjualan tbody tr').each(function () {
             let stokTersedia = parseInt($(this).find('.stok').text()); 
                 // stokTersedia yang dihasilkan akan digunakan dalam proses validasi untuk memastikan bahwa jumlah yang ingin dibeli oleh pengguna tidak melebihi stok yang tersedia.
@@ -204,6 +207,38 @@
                 // Logika OR: Menggunakan operator logika || (OR) berarti jika salah satu dari kedua kondisi tersebut terpenuhi, maka blok kode di dalam if akan dieksekusi.
         });
     }
+
+    $('#kode_produk').on('keypress', function (e) {
+        if (e.which == 13) {  // Kode 13 adalah kode untuk tombol Enter
+
+            e.preventDefault();
+            let kodeProduk = $(this).val().trim(); // Ambil nilai kode produk dari input
+            if (kodeProduk !== '') {
+                // Kirimkan request AJAX ke server untuk menambah produk berdasarkan kode
+                $.ajax({
+                    url: '{{ route('transaksi.store') }}', // Sesuaikan dengan route yang benar
+                    type: 'POST',
+                    data: {
+                        kode_produk: kodeProduk, 
+                        id_penjualan: '{{ session('id_penjualan') }}', // Kirim ID Penjualan
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        // Reset input setelah produk ditambahkan
+                        $('#kode_produk').val('');
+                        // Lakukan sesuatu, misalnya refresh data tabel penjualan
+                        // Refresh data tabel dengan memanggil ulang fungsi loadTable() jika ada
+                        setTimeout(() => {
+                            table.ajax.reload();
+                        }, 200);
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText); // Tampilkan pesan error dari server
+                    }
+                });
+            }
+        }
+    });
 
         $(document).on('input', '.quantity', function () {
             let id = $(this).data('id');
@@ -367,7 +402,8 @@
         $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
             .done(response => {
                 $('#kode_produk').focus();
-                table.ajax.reload(() => loadForm($('#diskon').val()));
+                // table.ajax.reload(() => loadForm($('#diskon').val()));
+                table.ajax.reload(null, false)
             })
             .fail(errors => {
                 alert('Tidak dapat menyimpan data');
