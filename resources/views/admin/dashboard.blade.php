@@ -58,7 +58,20 @@
           </div>
         </div>
         <!-- ./col -->
-        
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>{{ 'Rp.' . number_format($totalRevenue, 0, ',', '.') }}</h3>
+
+              <p>Total Pendapatan</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-file-pdf-o"></i>
+            </div>
+            <a href="{{ route('laporan.index') }}" class="small-box-footer">lihat <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
         <!-- ./col -->
       </div>
       <!-- /.row -->

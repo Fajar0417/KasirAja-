@@ -134,6 +134,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     let table, table2;
 
@@ -206,7 +207,35 @@
         });
 
         $('.btn-simpan').on('click', function () {
-            $('.form-pembelian').submit();
+            if ($('#kode_produk').val() === '' || $('#total_item').val() === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Produk Belum Dipilih',
+                        text: 'Silakan tambahkan produk ke dalam transaksi sebelum menyimpan',
+                        confirmButtonText: 'OK'
+                    });
+                    return; //Hentikan proses simpan jika produk atau jumlah tidak ada
+                }
+
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menyimpan transaksi ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Tidak, batalkan'
+            }).then((result) =>{
+                if (result.isConfirmed){
+                    $('.form-pembelian').submit();
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Transaksi berhasil disimpan',
+                    showConfirmButton: false
+                });
+                return;
+                }
+            })
+            
         });
     });
 

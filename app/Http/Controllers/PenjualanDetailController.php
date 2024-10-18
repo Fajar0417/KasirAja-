@@ -82,7 +82,6 @@ class PenjualanDetailController extends Controller
     }
 
     public function store(Request $request)
-    
     {
 
         $produk = Produk::where('kode_produk', $request->kode_produk)->first();
@@ -99,8 +98,18 @@ class PenjualanDetailController extends Controller
          return response()->json(['message' => 'ID Penjualan tidak ditemukan'], 400);
         }
         
-            // Cek apakah bayar lebih dari 0
-
+        // Cek apakah produk sudah ada dalam detail penjualan
+        $detail = PenjualanDetail::where('id_penjualan', $penjualanId)
+                    ->where('id_produk', $produk->id_produk)
+                    ->first();
+    
+        if ($detail) {
+            // Jika produk sudah ada, perbarui jumlah dan subtotal
+            $detail->jumlah += 1;
+            $detail->subtotal = ($detail->harga_jual - ($detail->harga_jual * $detail->diskon / 100)) * $detail->jumlah;
+            $detail->save();
+        } else {
+            // Jika produk belum ada, buat detail baru
         $detail = new PenjualanDetail();
         $detail->id_penjualan = $request->id_penjualan; // Pastikan ini id_penjualan
         $detail->id_produk = $produk->id_produk;
@@ -109,9 +118,11 @@ class PenjualanDetailController extends Controller
         $detail->jumlah = 1;  
         $detail->subtotal = ($produk->harga_jual - ($produk->harga_jual * $produk->diskon / 100)) * $detail->jumlah;
         $detail->save();
-
+        }
         return response()->json('Data berhasil disimpan', 200);
     }
+
+
     public function update(Request $request, $id)
     {
         $detail = PenjualanDetail::find($id);
@@ -119,6 +130,8 @@ class PenjualanDetailController extends Controller
         $detail->subtotal = $detail->harga_jual * $request->jumlah;
         $detail->update();
     }
+
+
     public function destroy($id)
     {
         $detail = PenjualanDetail::find($id);
@@ -126,6 +139,8 @@ class PenjualanDetailController extends Controller
 
         return response(null, 204);
     }
+
+
     public function loadform($diskon = 0, $total, $diterima)
     {
         $id_penjualan = session('id_penjualan'); // Ambil ID penjualan dari session
@@ -155,21 +170,23 @@ class PenjualanDetailController extends Controller
 
         return response()->json($data);
     }
-    public function checkStok($id_produk, $jumlah)
-{
-    $produk = Produk::find($id_produk);
 
-    if ($produk->stok < $jumlah) {
+
+    public function checkStok($id_produk, $jumlah)
+    {
+        $produk = Produk::find($id_produk);
+
+        if ($produk->stok < $jumlah) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Jumlah yang diminta melebihi stok yang tersedia!',
+            ]);
+        }
+
         return response()->json([
-            'status' => 'error',
-            'message' => 'Jumlah yang diminta melebihi stok yang tersedia!',
+            'status' => 'success',
+            'message' => 'Stok tersedia!',
         ]);
     }
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Stok tersedia!',
-    ]);
-}
 
 }

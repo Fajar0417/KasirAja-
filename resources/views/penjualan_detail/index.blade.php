@@ -234,8 +234,10 @@
                     },
                     error: function (xhr) {
                         Swal.fire({
-                        icon: 'warning',
+                        icon: 'succes',
                         title: 'Produk tidak ditemukan!',
+                        showConfirmButton: false,
+                        timer: 1500
                         });
                     $('#kode_produk').val('');  // // Reset input setelah produk ditambahkan
                     }
