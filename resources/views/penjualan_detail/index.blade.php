@@ -233,7 +233,11 @@
                         }, 200);
                     },
                     error: function (xhr) {
-                        alert(xhr.responseText); // Tampilkan pesan error dari server
+                        Swal.fire({
+                        icon: 'warning',
+                        title: 'Produk tidak ditemukan!',
+                        });
+                    $('#kode_produk').val('');  // // Reset input setelah produk ditambahkan
                     }
                 });
             }
@@ -328,7 +332,7 @@
 
         $('.btn-simpan').on('click', function (e) {
             e.preventDefault();
-
+            
             checkStok(); // Cek validasi stok sebelum menyimpan
 
             if (!isStokValid) {

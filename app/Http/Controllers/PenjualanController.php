@@ -72,6 +72,7 @@ class PenjualanController extends Controller
         $penjualan->save();
 
         session(['id_penjualan' => $penjualan->id_penjualan]);
+        
         return redirect()->route('transaksi.index');
     }
 

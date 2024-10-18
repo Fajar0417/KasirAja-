@@ -82,7 +82,9 @@ class PenjualanDetailController extends Controller
     }
 
     public function store(Request $request)
+    
     {
+
         $produk = Produk::where('kode_produk', $request->kode_produk)->first();
         if (!$produk) {
             return response()->json('Data gagal disimpan', 400);
@@ -96,7 +98,8 @@ class PenjualanDetailController extends Controller
         if (!$penjualanId) {
          return response()->json(['message' => 'ID Penjualan tidak ditemukan'], 400);
         }
-    
+        
+            // Cek apakah bayar lebih dari 0
 
         $detail = new PenjualanDetail();
         $detail->id_penjualan = $request->id_penjualan; // Pastikan ini id_penjualan

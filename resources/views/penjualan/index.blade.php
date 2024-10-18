@@ -41,6 +41,7 @@
     let table, table1;
 
     $(function () {
+        
     table = $('.table-penjualan').DataTable({
         responsive: true,
         processing: true,
