@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+<!-- menunjukkan bahwa bahasa yang digunakan adalah Bahasa Indonesia. -->
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
     <link target="_blank" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Sertakan AOS CSS untuk animasi -->
+    <!-- Sertakan AOS CSS pustaka java script untuk animasi -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
@@ -19,12 +20,15 @@
         /* navbar */
         .navbar {
             height: 60px;
+            /* memiliki tinggi sebesar 60 piksel */
             background-color: #446DB2;
+            /* berwarna biru*/
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
         }
 
         .navbar a {
             color: white;
+            /* teks berwarna putih */
         }
 
 
@@ -39,14 +43,19 @@
 
         .beranda {
             height: 100vh;
+            /* height: 100vh artinya tinggi elemen akan memenuhi seluruh tinggi vertikal layar pengguna. */
             display: flex;
+            /* properti CSS yang berfungsi untuk mengaktifkan flexbox, yaitu modul tata letak kotak fleksibel */
             padding: 0 50px;
+            /* sama halnya seperti border */
             justify-content: space-between;
+            /* berfungsi membuat jarak awal dengan jarak akhir contohnya; | Item 1      Item 2      Item 3 | */
             background: #ffffff;
         }
 
         .container-ber {
             margin-top: 80px;
+            /* margin digunakan untuk memberi ruang atau halnya seperti spasi */
         }
 
         .img-ber {

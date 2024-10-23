@@ -99,16 +99,17 @@ class PenjualanDetailController extends Controller
         }
         
         // Cek apakah produk sudah ada dalam detail penjualan
-        $detail = PenjualanDetail::where('id_penjualan', $penjualanId)
+        $detail = PenjualanDetail::where('id_penjualan', $penjualanId)  //id_penjualan: ID penjualan yang sedang aktif (biasanya digunakan untuk mengidentifikasi transaksi penjualan saat ini).
                     ->where('id_produk', $produk->id_produk)
-                    ->first();
+                    ->first();  //akan mengembalikan satu baris data jika ada data yang sesuai dengan kriteria pencarian. Jika tidak ada, maka nilainya null.
     
         if ($detail) {
             // Jika produk sudah ada, perbarui jumlah dan subtotal
             $detail->jumlah += 1;
             $detail->subtotal = ($detail->harga_jual - ($detail->harga_jual * $detail->diskon / 100)) * $detail->jumlah;
+            //Subtotal diperbarui: ($detail->harga_jual - ($detail->harga_jual * $detail->diskon / 100)) * $detail->jumlah; menghitung subtotal produk dengan memperhitungkan diskon.
             $detail->save();
-        } else {
+        } else {    //jika $detail null, berarti produk tersebut belum ada dalam daftar penjualan, sehingga sistem akan membuat entri baru:
             // Jika produk belum ada, buat detail baru
         $detail = new PenjualanDetail();
         $detail->id_penjualan = $request->id_penjualan; // Pastikan ini id_penjualan
@@ -121,6 +122,9 @@ class PenjualanDetailController extends Controller
         }
         return response()->json('Data berhasil disimpan', 200);
     }
+    //Mendeteksi apakah produk yang dimasukkan pengguna sudah ada di detail penjualan.
+    //Jika produk sudah ada, jumlahnya akan diperbarui, dan subtotal dihitung ulang.
+    //Jika produk belum ada, sistem akan membuat entri baru di detail penjualan dengan jumlah awal 1 dan subtotal berdasarkan harga dan diskon produk.
 
 
     public function update(Request $request, $id)

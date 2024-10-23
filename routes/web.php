@@ -54,7 +54,8 @@ Route::group(['middleware' => 'level:1'], function () {
     Route::resource('/kategori', kategoriController::class);
 
    
-    Route::get('/supplier/data', [supplierController::class, 'data'])->name('supplier.data');
+    Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
+    Route::delete('supplier/{id}', [SupplierController::class, 'delete'])->name('supplier.delete');
     Route::resource('/supplier', SupplierController::class);
 
     Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');

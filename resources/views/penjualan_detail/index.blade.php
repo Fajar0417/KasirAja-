@@ -234,7 +234,7 @@
                     },
                     error: function (xhr) {
                         Swal.fire({
-                        icon: 'succes',
+                        icon: 'error',
                         title: 'Produk tidak ditemukan!',
                         showConfirmButton: false,
                         timer: 1500

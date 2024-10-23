@@ -134,7 +134,7 @@
                         '_method': 'delete'
                     })
                     .done((response) => {
-                        $('#modal-form').modal('hide');
+                       
                         table.ajax.reload();
                         Swal.fire({
                             icon: 'success',
@@ -147,7 +147,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
-                            text: 'Tidak dapat menghapus Supplier!',
+                            text: 'Tidak dapat menghapus Supplier karena Supplier sedang digunakan!',
                             confirmButtonText: 'OK'
                         });
                     });

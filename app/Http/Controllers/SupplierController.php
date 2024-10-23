@@ -98,10 +98,20 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $supplier = Supplier::find($id)->delete();
+        try {
+            $supplier = Supplier::findOrFail($id);
 
-        return response(null, 204);
+             // Cek apakah supplier sudah digunakan di pembelian
+        if ($supplier->pembelian()->exists()) {
+            return response()->json(['message' => 'Supplier tidak dapat dihapus karena sudah digunakan di pembelian'], 400);
+        }
+
+            $supplier->delete();
+            return response()->json(['message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Tidak dapat menghapus data'], 500);
+        }
     }
 }
