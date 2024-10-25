@@ -26,6 +26,9 @@ class SupplierController extends Controller
                     <button type="button" onclick="deleteData(`'. route('supplier.destroy', $supplier->id_supplier) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
+                //onclick menentukan aksi yang akan dijalankan ketika tombol diklik.
+                //'supplier.update' adalah nama route untuk memperbarui supplier,
+                //$supplier->id_supplier adalah ID supplier yang akan diperbarui.
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -50,6 +53,9 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $supplier = Supplier::create($request->all());
+        //Supplier::create(...) adalah cara untuk membuat entri baru di tabel suppliers.
+        //$request->all() mengambil semua data yang ada di request (data form) dan mengirimkannya ke metode create().
+        //Metode ini digunakan untuk menerima data yang dikirim dari form (misalnya, melalui tombol yang telah kamu sebutkan sebelumnya), menyimpannya ke dalam database,
 
         return response()->json('Data berhasil disimpan', 200);
     }

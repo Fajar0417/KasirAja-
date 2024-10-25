@@ -18,3 +18,4 @@ class Pembelian extends Model
         return $this->belongsTo(Supplier::class, 'id_supplier');
     }
 }
+//$this->belongsTo(): Ini adalah metode yang digunakan untuk mendefinisikan relasi "belongs to" (berasal dari).

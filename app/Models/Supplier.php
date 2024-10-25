@@ -19,3 +19,4 @@ class Supplier extends Model
         return $this->hasMany(Pembelian::class, 'id_supplier');
     }
 }
+//hasMany(): Ini adalah metode yang digunakan untuk mendefinisikan relasi "satu ke banyak".
